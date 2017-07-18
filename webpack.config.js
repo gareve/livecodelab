@@ -1,7 +1,6 @@
-/* global process, require, module, __dirname */
+/* global require, module, __dirname */
 
 var path = require('path');
-var webpack = require('webpack');
 
 module.exports = {
   entry: ['babel-polyfill', './src/coffee/lcl-init.coffee'],
@@ -13,12 +12,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: [
-          /node_modules/,
-          /jquery.*\.js/,
-          /coffee-script\.js/,
-          /codemirror/,
-        ],
+        exclude: [/node_modules/, /jquery.*\.js/, /codemirror/],
         loader: 'babel-loader',
       },
       { test: /\.coffee$/, loader: 'coffee-loader' },
@@ -66,11 +60,4 @@ module.exports = {
   resolveLoader: {
     modules: ['./webpack', './node_modules'],
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      LANGUAGE: JSON.stringify(
-        process.env.LCLANG === 'v2' ? 'livelangv2' : 'livelangv1'
-      ),
-    }),
-  ],
 };
